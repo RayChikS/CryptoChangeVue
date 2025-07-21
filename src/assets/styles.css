@@ -1,4 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Nabla&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: rgb(86, 18, 91);
   background: linear-gradient(
@@ -8,6 +14,7 @@ body {
   );
   min-height: 100vh;
   text-align: center;
+  font-family: "Montserrat", sans-serif;
 }
 
 h1 {

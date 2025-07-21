@@ -1,5 +1,5 @@
 <template>
-  <input type="number" />
+  <input type="number" placeholder="Enter number" />
 </template>
 
 <script>
@@ -7,7 +7,7 @@ export default {};
 </script>
 
 <style scoped>
-input {
+input { 
   width: 500px;
   position: relative;
   top: -50px;
