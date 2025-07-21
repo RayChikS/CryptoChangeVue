@@ -1,11 +1,18 @@
 <template>
   <div>
     <h1>CRYPTO</h1>
+    <Input />
   </div>
 </template>
 
 <script>
-export default {};
+import Input from "./components/Imput.vue";
+export default {
+  components: {
+    Input,
+  },
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>
