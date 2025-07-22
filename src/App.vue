@@ -3,6 +3,7 @@
     <h1>CRYPTO</h1>
     <Input :changeAmount="changeAmount" :convert="convert" />
     <p class="error" v-if="error != ''">{{ error }}</p>
+    <p class="result" v-if="result != 0">{{ result }}</p>
     <div class="selectors">
       <Selector :setCrypto="setCryptoFirst" />
       <Selector :setCrypto="setCryptoSecond" />
@@ -13,7 +14,9 @@
 <script>
 import Input from "./components/Imput.vue";
 import Selector from "./components/Selector.vue";
-import CryptoConvert from 'crypto-convert';
+import CryptoConvert from "crypto-convert";
+
+const convert = new CryptoConvert();
 
 export default {
   components: {
@@ -26,6 +29,7 @@ export default {
       cryptoFirst: "",
       cryptoSecond: "",
       error: "",
+      result: 0,
     };
   },
   methods: {
@@ -38,7 +42,7 @@ export default {
     setCryptoSecond(val) {
       this.cryptoSecond = val;
     },
-    convert() {
+    async convert() {
       if (this.amount <= 0) {
         this.error = "Enter number more than 0";
         return;
@@ -52,13 +56,31 @@ export default {
         this.error = "Choose second currency";
         return;
       }
+
       this.error = "";
+
+      await convert.ready();
+
+      if (
+        this.cryptoFirst &&
+        this.cryptoSecond &&
+        convert[this.cryptoFirst] &&
+        convert[this.cryptoFirst][this.cryptoSecond]
+      ) {
+        this.result = convert[this.cryptoFirst][this.cryptoSecond](this.amount);
+      } else {
+        this.result = 0;
+      }
     },
   },
 };
 </script>
 
 <style scoped>
+.result {
+  font-family: "Nabla", system-ui;
+  font-size: 2em;
+}
 .error {
   font-size: 20px;
   font-weight: 600;

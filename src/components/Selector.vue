@@ -6,8 +6,8 @@
     <li @click="selectItem('ETH')" :class="current == 'ETH' ? 'active' : ''">
       ETH
     </li>
-    <li @click="selectItem('USTD')" :class="current == 'USTD' ? 'active' : ''">
-      USTD
+    <li @click="selectItem('USDT')" :class="current == 'USDT' ? 'active' : ''">
+      USDT
     </li>
   </ul>
 </template>
