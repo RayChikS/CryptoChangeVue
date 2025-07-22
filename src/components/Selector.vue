@@ -1,13 +1,37 @@
 <template>
   <ul>
-    <li>Bitcoin</li>
-    <li>ETH</li>
-    <li>USTD</li>
+    <li @click="selectItem('BTC')" :class="current == 'BTC' ? 'active' : ''">
+      Bitcoin
+    </li>
+    <li @click="selectItem('ETH')" :class="current == 'ETH' ? 'active' : ''">
+      ETH
+    </li>
+    <li @click="selectItem('USTD')" :class="current == 'USTD' ? 'active' : ''">
+      USTD
+    </li>
   </ul>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    setCrypto: {
+      type: Function,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      current: "",
+    };
+  },
+  methods: {
+    selectItem(val) {
+      this.setCrypto(val);
+      this.current = val;
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -25,7 +49,7 @@ li {
   padding: 20px 0;
 }
 li:hover,
-li:active {
+li.active {
   background: #24043e;
   cursor: pointer;
 }

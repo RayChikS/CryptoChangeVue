@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "crypto-convert": "^2.1.7",
     "vue": "^3.5.17"
   },
   "devDependencies": {
