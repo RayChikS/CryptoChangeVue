@@ -7,6 +7,7 @@
       placeholder="Enter number"
     />
     <button @click="convert()">Convert</button>
+    <button @click="favourite()">Add to Favourite</button>
   </div>
 </template>
 
@@ -18,6 +19,10 @@ export default {
       required: true,
     },
     convert: {
+      type: Function,
+      required: true,
+    },
+    favourite: {
       type: Function,
       required: true,
     },

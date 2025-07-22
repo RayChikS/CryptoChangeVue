@@ -1,12 +1,21 @@
 <template>
   <div>
     <h1>CRYPTO</h1>
-    <Input :changeAmount="changeAmount" :convert="convert" />
+    <Input
+      :changeAmount="changeAmount"
+      :convert="convert"
+      :favourite="favourite"
+    />
     <p class="error" v-if="error != ''">{{ error }}</p>
     <p class="result" v-if="result != 0">{{ result }}</p>
+    <Favourites
+      :favs="favs"
+      v-if="favs.length > 0"
+      :getFromFavs="getFromFavs"
+    />
     <div class="selectors">
-      <Selector :setCrypto="setCryptoFirst" />
-      <Selector :setCrypto="setCryptoSecond" />
+      <Selector :setCrypto="setCryptoFirst" :cryptoNow="cryptoFirst" />
+      <Selector :setCrypto="setCryptoSecond" :cryptoNow="cryptoSecond" />
     </div>
   </div>
 </template>
@@ -14,6 +23,7 @@
 <script>
 import Input from "./components/Imput.vue";
 import Selector from "./components/Selector.vue";
+import Favourites from "./components/Favourites.vue";
 import CryptoConvert from "crypto-convert";
 
 const convert = new CryptoConvert();
@@ -22,6 +32,7 @@ export default {
   components: {
     Input,
     Selector,
+    Favourites,
   },
   data() {
     return {
@@ -30,9 +41,14 @@ export default {
       cryptoSecond: "",
       error: "",
       result: 0,
+      favs: [],
     };
   },
   methods: {
+    getFromFavs(index) {
+      this.cryptoFirst = this.favs[index].from;
+      this.cryptoSecond = this.favs[index].to;
+    },
     changeAmount(val) {
       this.amount = val;
     },
@@ -41,6 +57,25 @@ export default {
     },
     setCryptoSecond(val) {
       this.cryptoSecond = val;
+    },
+    favourite() {
+      if (this.cryptoFirst == "" && this.cryptoSecond == "") {
+        this.error = "You need to choose 2 currencyes";
+        return;
+      } else if (this.cryptoFirst == "" || this.cryptoSecond == "") {
+        this.error = "You need to choose 2 currencyes";
+        return;
+      } else if (this.cryptoFirst == this.cryptoSecond) {
+        this.error = "You can't choose same currencyes";
+        return;
+      } else {
+        this.favs.push({
+          from: this.cryptoFirst,
+          to: this.cryptoSecond,
+        });
+        this.error = "";
+        return;
+      }
     },
     async convert() {
       if (this.amount <= 0) {
